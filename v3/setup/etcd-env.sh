@@ -1,5 +1,12 @@
 #!/bin/bash -x
 
+source /etc/environment
+
+# Skip setting the etcd keys if we're not on the control tier
+if [ "${NODE_ROLE}" != "control" ]; then
+  exit 0
+fi
+
 ENV_FILE="/etc/environment"
 ETCD_PREFIX="/environment"
 IGNORED='^NODE|^COREOS|^#|^FLIGHT_DIRECTOR|^CAPCOM'
